@@ -54,9 +54,12 @@ Passo a Passo
 4. Funções Executadas
    O script executará automaticamente as seguintes funções:
 
--> Baixará os arquivos utilizando a função f_download_files.
--> Processará os arquivos e criará as tabelas brutas com a função f_process_files.
--> Criará as tabelas "trusted" e "refined" com as funções f_create_trusted_table e f_create_refined_table, respectivamente.
+   -> Baixará os arquivos utilizando a função f_download_files.
+
+   -> Processará os arquivos e criará as tabelas brutas com a função f_process_files.
+
+   -> Criará as tabelas "trusted" e "refined" com as funções f_create_trusted_table e f_create_refined_table, respectivamente.
+
    Exemplo de Execução:
    python ds3x_upload_data_to_bigquery.py "C:\\Users\\william\\Downloads\\ds3x_files\\" "Z:\\DS3X\\SA-william_tomazeto.json"
    
