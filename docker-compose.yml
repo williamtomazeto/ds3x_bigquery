@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  ds3x-bigquery:
+    build: .
+    volumes:
+      - .:/app
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/sa-william_tomazeto.json
+    command: python ds3x_upload_data_to_bigquery.py "C:/path/to/your/files" "C:/path/to/your/access-key.json"
