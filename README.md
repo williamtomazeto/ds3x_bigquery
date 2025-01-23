@@ -15,16 +15,16 @@ Arquivos Principais
 Etapas do Pipeline de Ingestão
 O pipeline de ingestão de dados é dividido nas seguintes etapas:
 
-Download de Arquivos:
+-> Download de Arquivos:
 A função f_download_files realiza o download dos arquivos do site FeComércio para o diretório especificado.
 
-Processamento de Arquivos:
+-> Processamento de Arquivos:
 A função f_process_files ingesta os arquivos baixados e cria as tabelas brutas no BigQuery.
 
-Criação de Tabelas Trusted:
+-> Criação de Tabelas Trusted:
 A função f_create_trusted_table é responsável por criar as tabelas "trusted" no BigQuery, que contêm dados confiáveis a partir das tabelas brutas.
 
-Criação de Tabelas Refined:
+-> Criação de Tabelas Refined:
 A função f_create_refined_table cria as tabelas refinadas no BigQuery, a partir das tabelas "trusted", com dados mais processados.
 
 
