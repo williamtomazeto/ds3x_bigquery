@@ -1,10 +1,13 @@
-version: '3.8'
-
+# docker-compose.yaml
 services:
-  ds3x-bigquery:
-    build: .
-    volumes:
-      - .:/app
+  ds3x-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ds3x-bigquery
+    #volumes:
+      #- .:/app
+      #- ./AccessKey:/app/AccessKey
+      #- ./download:/app/download
     environment:
-      - GOOGLE_APPLICATION_CREDENTIALS=/app/sa-william_tomazeto.json
-    command: python ds3x_upload_data_to_bigquery.py "C:/path/to/your/files" "C:/path/to/your/access-key.json"
+      GOOGLE_APPLICATION_CREDENTIALS: /app/AccessKey/SA-william_tomazeto.json

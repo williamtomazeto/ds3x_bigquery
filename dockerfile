@@ -1,17 +1,21 @@
-# Usar uma imagem base do Python
-FROM python:3.9-slim
+# Usando uma imagem base
+FROM python:3.9
 
-# Definir o diretório de trabalho no container
+# Set working directory
 WORKDIR /app
 
-# Copiar o requirements.txt para o container
-COPY requirements.txt .
+# Cria o diretório de download e leitura dos arquivos
+RUN mkdir -p /app/download
+RUN mkdir -p /app/AccessKey
 
-# Instalar as dependências
+# Copy project files to the container
+COPY . /app
+COPY SA-william_tomazeto.json /app/AccessKey/
+
+# Install required Python packages
 RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update && apt-get install -y wget
 
-# Copiar o código fonte para o container
-COPY . .
-
-# Comando para rodar o script
-CMD ["python", "ds3x_upload_data_to_bigquery.py"]
+# Set default command for the container
+#CMD ["python", "ds3x_upload_data_to_bigquery.py", "/app/download/", "/app/AccessKey/SA-william_tomazeto.json"]
+CMD ["sh", "-c", "python ds3x_upload_data_to_bigquery.py /app/download/ /app/AccessKey/SA-william_tomazeto.json && tail -f /dev/null"]
