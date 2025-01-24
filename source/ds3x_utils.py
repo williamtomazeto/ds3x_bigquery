@@ -17,6 +17,30 @@ from bs4 import BeautifulSoup
 
 
 def f_create_dataframe(pFilePath: str, pSheetName: Optional[Union[str, int]]=0, pSkipRows: Optional[int]=0, pHeader: Optional[int]=0, pColumns: Optional[List[str]]=None)-> pd.DataFrame:
+    """
+    A função f_create_dataframe gera um dataframe que pode ser usando, por exemplo, na criação de tabelas no Google Bigquery
+
+    Parâmetros:
+    pFilePath (str): Diretório onde um arquivo Excel será lido
+    pSheetName (Optional[Union[str, int]]=0): Ñome ou posição da planilha a ser utilizada no arquivo Excel
+    pSkipRows (Optional[int]=0): Número de linhas de salto/desprezadas no início do arquivo
+    pHeader (Optional[int]=0): Indica se a primeira linha será ou não utilizada como cabeçalho
+    pColumns (Optional[List[str]]=None): Lista de colunas opicional para alteração dos nomes originais
+
+    Retorna:
+    pd.DataFrame: A função retorna um dataframe pandas
+    """
+
+    content = f"""
+    # DS3X_BIGQUERY
+    
+    ## Descrição
+    O projeto DS3X_BIGQUERY foi aplicado com teste de admissão para a vaga de Engenheiro de Dados
+    
+    ## Autor
+    William Tomazeto
+    """
+
     try:
         # Carregando o arquivo num Data Frame
         df = pd.read_excel(pFilePath, sheet_name=pSheetName, skiprows=pSkipRows, header=pHeader)
@@ -33,6 +57,26 @@ def f_create_dataframe(pFilePath: str, pSheetName: Optional[Union[str, int]]=0, 
 
 
 def f_bigquery_connection(pPathAccessKey: str)->Dict[str, object]:
+    """
+    A função f_bigquery_connection cria a conexão com o recurso Bigquery
+
+    Parâmetros:
+    pPathAccessKey (str): Diretório acompanhdo do nome do arquivo de conta de serviço para acesso à api do bigquery
+    
+    Retorna:
+    Dict: A função retorna um dicionário com as informações de credentils, client, project_id e dataset_id
+    """
+
+    content = f"""
+    # DS3X_BIGQUERY
+    
+    ## Descrição
+    O projeto DS3X_BIGQUERY foi aplicado com teste de admissão para a vaga de Engenheiro de Dados
+    
+    ## Autor
+    William Tomazeto
+    """
+
     try:
         # Configurando Credenciais
         credentials = service_account.Credentials.from_service_account_file(
@@ -69,6 +113,27 @@ def f_bigquery_connection(pPathAccessKey: str)->Dict[str, object]:
 
 
 def f_upload_bigquery(pDf: pd.DataFrame,  pConnection: Dict, pTable: str):    
+    """
+    A função f_upload_bigquery faz o upload dos arquivos excel lidos para o bigquery
+
+    Parâmetros:
+    pDf (pd.DataFrame): Dataframe com os dados do arquivo 
+    pConnection: (Dict): Dicionário com informações do ambiente bigquery
+    pTable (str): Tabela a ser criada
+    
+    Retorna:
+    None: Sem retorno
+    """
+
+    content = f"""
+    # DS3X_BIGQUERY
+    
+    ## Descrição
+    O projeto DS3X_BIGQUERY foi aplicado com teste de admissão para a vaga de Engenheiro de Dados
+    
+    ## Autor
+    William Tomazeto
+    """    
     try:
         # Configurando Credenciais e Projeto
         pgbq.context.credentials = pConnection['credentials']
@@ -100,9 +165,30 @@ def f_upload_bigquery(pDf: pd.DataFrame,  pConnection: Dict, pTable: str):
 
 
 def f_process_files(pPath: str, pPathAccessKey: str):
+    """
+    A função f_upload_bigquery faz o upload dos arquivos excel lidos para o bigquery
+
+    Parâmetros:
+    pPath (str): Diretório de leitura dos arquivos excel a serem ingeridos
+    pPathAccessKey (str): Diretório onde se encontra o arquivo contendo a chave de acesso para o bigquery
+    
+    Retorna:
+    None: Sem retorno
+    """
+
+    content = f"""
+    # DS3X_BIGQUERY
+    
+    ## Descrição
+    O projeto DS3X_BIGQUERY foi aplicado com teste de admissão para a vaga de Engenheiro de Dados
+    
+    ## Autor
+    William Tomazeto
+    """    
+
     try:
         #Lista os arquivos do diretório
-        files = [f for f in os.listdir(pPath) if os.path.isfile(os.path.join(pPath, f))]
+        files = [f for f in os.listdir(pPath) if os.path.isfile(os.path.join(pPath, f)) and f.endswith('.xlsx')]
         if not files:
             raise FileNotFoundError(f"Nenhum arquivo encontrado no diretório: {pPath}")
 
@@ -136,11 +222,31 @@ def f_process_files(pPath: str, pPathAccessKey: str):
 
 
 def f_download_files(pPath: str):
+    """
+    A função f_download_files faz o download dos arquivos do site FeComércio
+
+    Parâmetros:
+    pPath (str): Diretório de escrita onde os arquivos excel serão baixados
+    
+    Retorna:
+    None: Sem retorno
+    """
+
+    content = f"""
+    # DS3X_BIGQUERY
+    
+    ## Descrição
+    O projeto DS3X_BIGQUERY foi aplicado com teste de admissão para a vaga de Engenheiro de Dados
+    
+    ## Autor
+    William Tomazeto
+    """    
+
     # Lista de páginas que contém links para downloads
     donwload_urls = ['https://www.fecomercio.com.br/pesquisas/indice/icc', 'https://www.fecomercio.com.br/pesquisas/indice/icf']
 
     # Local para armazenar os arquivos.
-    vfilepath = 'C:\\Users\\william\\Downloads\\ds3x_files\\'
+    #vfilepath = 'C:\\Users\\william\\Downloads\\ds3x_files\\'
 
     # Realizando o download dos arquivos 
     for url in donwload_urls:
@@ -170,7 +276,7 @@ def f_download_files(pPath: str):
             download_link = soup.find("a",{"class":"download"}).get("href")
         
             # 
-            filename = vfilepath + os.path.basename(download_link)
+            filename = pPath + os.path.basename(download_link)
             if os.path.exists(filename):
                 os.remove(filename)
             wget.download(download_link, filename)
@@ -178,6 +284,26 @@ def f_download_files(pPath: str):
     print('\nDownload de arquivos realizado com sucesso!\n')
 
 def f_create_trusted_table(pConnection: Dict):
+    """
+    A função f_create_trusted_table cria as tabelas trusted
+
+    Parâmetros:
+    pConnection (Dict): Dicionário contendo informações do ambinte bigquery
+    
+    Retorna:
+    None: Sem retorno
+    """
+
+    content = f"""
+    # DS3X_BIGQUERY
+    
+    ## Descrição
+    O projeto DS3X_BIGQUERY foi aplicado com teste de admissão para a vaga de Engenheiro de Dados
+    
+    ## Autor
+    William Tomazeto
+    """    
+
     tables = list(pConnection['client'].list_tables(pConnection['dataset_id']))
     if tables:
         for table in tables:
@@ -209,6 +335,25 @@ def f_create_trusted_table(pConnection: Dict):
 
 
 def f_create_refined_table(pConnection: Dict):
+    """
+    A função f_create_refined_table cria a tabela refined
+
+    Parâmetros:
+    pConnection (Dict): Dicionário contendo informações do ambinte bigquery
+    
+    Retorna:
+    None: Sem retorno
+    """
+
+    content = f"""
+    # DS3X_BIGQUERY
+    
+    ## Descrição
+    O projeto DS3X_BIGQUERY foi aplicado com teste de admissão para a vaga de Engenheiro de Dados
+    
+    ## Autor
+    William Tomazeto
+    """        
     # Consulta tabelas trusted para criação da tabela refined
     sql = f"""
     WITH 
@@ -268,6 +413,27 @@ def f_create_refined_table(pConnection: Dict):
 
 
 def query_bigquery(pConnection: Dict):
+    """
+    A função query_bigquery consulta tabelas no bigquery, de maneira
+    que a tabela deve ser indicada na consulta escrita na variável sql.
+    Usada apenas para conferência e não faz parte do rpocesso de automatização.
+
+    Parâmetros:
+    pConnection (Dict): Dicionário contendo informações do ambinte bigquery
+    
+    Retorna:
+    None: Sem retorno
+    """
+
+    content = f"""
+    # DS3X_BIGQUERY
+    
+    ## Descrição
+    O projeto DS3X_BIGQUERY foi aplicado com teste de admissão para a vaga de Engenheiro de Dados
+    
+    ## Autor
+    William Tomazeto
+    """        
     client = pConnection['client']
     
     print(f"{pConnection['project_id']}.{pConnection['dataset_id']}.{'icc_trusted'}")
