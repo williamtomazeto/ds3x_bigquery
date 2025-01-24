@@ -1,4 +1,8 @@
 google-cloud-bigquery==3.8.0
 pandas==1.5.3
+numpy==1.23.5
+pandas-gbq==0.26.1
 requests==2.28.2
 argparse==1.4.0
+wget
+bs4
